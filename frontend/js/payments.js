@@ -1,0 +1,4 @@
+document.addEventListener('DOMContentLoaded',async()=>{
+ const box=document.querySelector('[data-payment-choice]');if(box){const p=new URLSearchParams(location.search);box.querySelector('[data-pay]').addEventListener('click',async()=>{try{const r=await API.post('/payments/initialize',{bookingId:Number(p.get('bookingId')),mode:p.get('mode')});location.href=r.authorizationUrl;}catch(e){box.querySelector('[data-message]').textContent=e.message;box.querySelector('[data-message]').className='notice error';}});}
+ const result=document.querySelector('[data-payment-result]');if(result){const ref=new URLSearchParams(location.search).get('reference');if(!ref){result.textContent='Payment reference not found.';return;}try{await API.get('/payments/verify/'+encodeURIComponent(ref));result.textContent='Payment verified. Thank you.';result.className='notice success';}catch(e){result.textContent=e.message;result.className='notice error';}}
+});

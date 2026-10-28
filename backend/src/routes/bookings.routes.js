@@ -1,0 +1,11 @@
+import { Router } from 'express';
+import { availability,create,mine,cancelMine } from '../controllers/bookings.controller.js';
+import { authenticate } from '../middleware/authenticate.js';
+import { validate } from '../middleware/validate.js';
+import { createBookingSchema } from '../validators/booking.validator.js';
+const router=Router();
+router.get('/availability',availability);
+router.post('/',authenticate,validate(createBookingSchema),create);
+router.get('/mine',authenticate,mine);
+router.patch('/:id/cancel',authenticate,cancelMine);
+export default router;

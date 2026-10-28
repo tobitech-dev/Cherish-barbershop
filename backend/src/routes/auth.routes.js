@@ -1,0 +1,12 @@
+import { Router } from 'express';
+import { register, login, logout, me } from '../controllers/auth.controller.js';
+import { authenticate } from '../middleware/authenticate.js';
+import { validate } from '../middleware/validate.js';
+import { registerSchema, loginSchema } from '../validators/auth.validator.js';
+import { rateLimit } from '../middleware/rate-limit.js';
+const router=Router();
+router.post('/register',rateLimit({max:8}),validate(registerSchema),register);
+router.post('/login',rateLimit({max:12}),validate(loginSchema),login);
+router.post('/logout',logout);
+router.get('/me',authenticate,me);
+export default router;

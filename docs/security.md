@@ -1,0 +1,2 @@
+# Security notes
+Passwords are hashed with bcrypt; authentication uses an HttpOnly cookie; admin APIs require the owner role; uploads are size/type limited; booking inputs are validated server-side; payment callbacks are verified. Before production, add email verification/password reset, CSRF protection appropriate to deployment, centralized logging, malware scanning for uploads, rate limiting at the edge, and persistent object storage.

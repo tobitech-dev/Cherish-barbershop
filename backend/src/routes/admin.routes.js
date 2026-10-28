@@ -1,0 +1,16 @@
+import { Router } from 'express';
+import { authenticate } from '../middleware/authenticate.js';
+import { ownerOnly } from '../middleware/authorize.js';
+import * as c from '../controllers/admin.controller.js';
+const router=Router();
+router.use(authenticate,ownerOnly);
+router.get('/dashboard',c.dashboard);
+router.get('/bookings',c.allBookings);
+router.patch('/bookings/:id',c.updateBooking);
+router.post('/services',c.createService);
+router.put('/services/:id',c.updateService);
+router.delete('/services/:id',c.deleteService);
+router.post('/barbers',c.createBarber);
+router.get('/settings',c.settings);
+router.put('/settings',c.settings);
+export default router;

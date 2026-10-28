@@ -1,0 +1,1 @@
+-- Initial schema is maintained in ../schema.sql. Run npm run db:init for local setup.
